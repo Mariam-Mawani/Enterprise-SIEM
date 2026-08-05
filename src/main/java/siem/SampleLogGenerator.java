@@ -22,6 +22,15 @@ public class SampleLogGenerator {
                 {"Adam", "10.0.0.12"}
         };
 
+        for (int i = 0; i < normalLogins.length; i++) {
+            String username = normalLogins[i][0];
+            String ipAddress = normalLogins[i][1];
+
+            logLines.add(buildLogLine(currentTime, "AUTH_SUCCESS", ipAddress, "user=" + username));
+            currentTime = currentTime.plusMinutes(7);
+        }
+
 
     }
+
 }
