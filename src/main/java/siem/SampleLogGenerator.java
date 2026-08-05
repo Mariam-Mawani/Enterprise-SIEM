@@ -16,5 +16,12 @@ public class SampleLogGenerator {
         System.out.println("  Adding normal login events...");
 
 
+        String[][] normalLogins = {
+                {"mariam", "10.0.0.5"},
+                {"thabo", "10.0.0.8"},
+                {"Adam", "10.0.0.12"}
+        };
+
+
     }
 }
