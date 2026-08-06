@@ -1,7 +1,6 @@
-package java.siem;
+package main.java.siem;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -30,7 +29,11 @@ public class SampleLogGenerator {
             currentTime = currentTime.plusMinutes(7);
         }
 
+        logLines.add(buildLogLine(currentTime, "AUTH_FAILED",  "10.0.0.8", "user=thabo"));
+        currentTime = currentTime.plusSeconds(20);
+        logLines.add(buildLogLine(currentTime, "AUTH_SUCCESS", "10.0.0.8", "user=thabo"));
+        currentTime = currentTime.plusMinutes(10);
+
 
     }
-
 }

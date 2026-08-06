@@ -1,4 +1,4 @@
-package java.siem;
+package test;
 
 public class DetectionEngineTest {
 }
