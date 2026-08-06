@@ -36,4 +36,11 @@ public class SampleLogGenerator {
 
 
     }
+
+    private String buildLogLine(LocalDateTime time, String eventType, String ipAddress, String details) {
+        return time.format(TIMESTAMP_FORMAT)
+                + " | " + eventType
+                + " | " + ipAddress
+                + " | " + details;
+    }
 }
