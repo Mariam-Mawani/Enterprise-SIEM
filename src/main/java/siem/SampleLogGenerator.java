@@ -1,4 +1,4 @@
-package main.java.siem;
+package java.siem;
 
 import java.io.FileWriter;
 import java.io.IOException;
