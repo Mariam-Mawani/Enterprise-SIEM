@@ -13,4 +13,13 @@ public class Alert {
         this.severity = severity;
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Alert{" +
+                "timestamp='" + timestamp + '\'' +
+                ", severity='" + severity + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
