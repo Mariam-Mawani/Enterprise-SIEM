@@ -35,6 +35,17 @@ public class LogParser {
             if (trimmedLine.isEmpty()) {
                 continue;
             }
+            // Try to parse this line into a logEvent object
+            LogEvent event = parseSingleLine(trimmedLine);
+            // parseSingleLine returns null if a line is malformed.
+            // We skip those lines rather than crashing.
+            if(event != null) {
+                events.add(event);
+            }
         }
+        reader.close();
+        return events;
+
+
     }
 }
