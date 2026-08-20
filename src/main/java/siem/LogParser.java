@@ -27,5 +27,14 @@ public class LogParser {
         // memory-efficient (we don't load the whole file at once).
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         String rawLine;
+
+        while ((rawLine = reader.readLine()) != null) {
+            // Remove any leading/trailing whitespace
+            String trimmedLine = rawLine.trim();
+            // Skip completely blank lines
+            if (trimmedLine.isEmpty()) {
+                continue;
+            }
+        }
     }
 }
