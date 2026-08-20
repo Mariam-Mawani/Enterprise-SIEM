@@ -5,6 +5,8 @@ package java.siem;
  * our program can work with easily.
  */
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,5 +25,7 @@ public class LogParser {
 
         // BufferedReader reads the file one line at a time, which is
         // memory-efficient (we don't load the whole file at once).
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        String rawLine;
     }
 }
