@@ -48,8 +48,14 @@ public class LogParser {
     }
 
     // Parse ONE line of text into a LogEvent object
-
     private LogEvent parseSingleLine(String rawLine){
         String[] sections = rawLine.split(" \\| ");
+
+        // We need at least 3 sections: timestamp, event type, ip field.
+        // If a line doesn't have at least 3, it's malformed -- skip it.
+        if (sections.length < 3) {
+            System.out.println("Warning: skipping malformed line: " + rawLine);
+            return null;
+        }
     }
 }
