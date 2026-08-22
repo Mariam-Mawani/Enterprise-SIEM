@@ -20,12 +20,12 @@ public class LogParser {
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     // Read every line in the file and return a list of events
-    public ArrayList<LogEvent> parseFile(String fileName) throws IOException {
+    public ArrayList<LogEvent> parseFile(String filename) throws IOException {
         ArrayList<LogEvent> events = new ArrayList<>();
 
         // BufferedReader reads the file one line at a time, which is
         // memory-efficient (we don't load the whole file at once).
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        BufferedReader reader = new BufferedReader(new FileReader(filename));
         String rawLine;
 
         while ((rawLine = reader.readLine()) != null) {
@@ -45,7 +45,11 @@ public class LogParser {
         }
         reader.close();
         return events;
+    }
 
+    // Parse ONE line of text into a LogEvent object
 
+    private LogEvent parseSingleLine(String rawLine){
+        String[] sections = rawLine.split(" \\| ");
     }
 }
