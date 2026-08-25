@@ -61,5 +61,10 @@ public class LogParser {
         // Pull out the timestamp and event type (always in the same place)
         String rawTimestamp = sections[0];
         String eventType    = sections[1];
+
+        // Parse the remaining sections as key=value pairs
+        // "ip=198.51.100.23" or "user=admin" or "port=22"
+        String ipAddress    = "unknown";
+        String extraDetails = "";
     }
 }
