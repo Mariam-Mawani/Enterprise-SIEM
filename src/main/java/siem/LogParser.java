@@ -57,5 +57,9 @@ public class LogParser {
             System.out.println("Warning: skipping malformed line: " + rawLine);
             return null;
         }
+
+        // Pull out the timestamp and event type (always in the same place)
+        String rawTimestamp = sections[0];
+        String eventType    = sections[1];
     }
 }
