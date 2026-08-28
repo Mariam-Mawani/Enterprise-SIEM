@@ -8,7 +8,9 @@ package java.siem;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 
@@ -92,6 +94,13 @@ public class LogParser {
                 }
                 extraDetails += key + "=" + value;
             }
+        }
+        LocalDateTime timestamp;
+        try {
+            timestamp = LocalDateTime.parse(rawTimestamp, TIMESTAMP_FORMAT);
+        } catch (DateTimeParseException error) {
+            System.out.println("Warning: could not parse timestamp '" + rawTimestamp + "' -- skipping line.");
+            return null;
         }
 
     }
