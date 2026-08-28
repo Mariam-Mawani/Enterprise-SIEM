@@ -85,7 +85,14 @@ public class LogParser {
                 // "ip" is a special field -- we give it its own column
                 ipAddress = value;
             }
-
+            else {
+                // Everything else goes into extraDetails as "key=value" text
+                if (!extraDetails.isEmpty()) {
+                    extraDetails += ", ";
+                }
+                extraDetails += key + "=" + value;
+            }
         }
+
     }
 }
