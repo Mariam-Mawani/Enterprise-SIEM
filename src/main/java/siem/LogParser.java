@@ -74,6 +74,17 @@ public class LogParser {
                 continue;
             }
 
+            // Split once on "=" to get the key and the value.
+            // The limit=2 means "split into at most 2 parts", which is important
+            // if a value ever contained an "=" character itself.
+            String[] keyAndValue = section.split("=", 2);
+            String key = keyAndValue[0].trim();
+            String value = keyAndValue[1].trim();
+
+            if (key.equals("ip")) {
+                // "ip" is a special field -- we give it its own column
+                ipAddress = value;
+            }
 
         }
     }
