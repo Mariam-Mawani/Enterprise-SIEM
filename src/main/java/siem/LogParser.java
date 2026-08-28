@@ -103,5 +103,7 @@ public class LogParser {
             return null;
         }
 
+        // Build and return the LogEvent object with everything we parsed
+        return  new LogEvent(rawTimestamp, timestamp, eventType, ipAddress, extraDetails)
     }
 }
