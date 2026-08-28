@@ -66,5 +66,15 @@ public class LogParser {
         // "ip=198.51.100.23" or "user=admin" or "port=22"
         String ipAddress    = "unknown";
         String extraDetails = "";
+
+        for (int i = 2; i < sections.length; i++) {
+            String section = sections[i];
+            // Skip any section that doesn't contain "=" (not a key=value pair)
+            if (!section.contains("=")) {
+                continue;
+            }
+
+
+        }
     }
 }
