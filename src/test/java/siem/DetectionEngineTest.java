@@ -1,6 +1,5 @@
-package siem;
+package java.siem;
 
-import java.siem.LogEvent;
 import java.time.LocalDateTime;
 
 public class DetectionEngineTest {
