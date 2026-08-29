@@ -1,5 +1,10 @@
 package java.siem;
 
+/*
+ * This class creates a FAKE (synthetic) log file for our
+ * Mini SIEM to analyse.
+ */
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;

@@ -1,7 +1,9 @@
 package java.siem;
-// A simple data class that holds all the information from
-// ONE line in our log file.
 
+/*
+ * A simple data class that holds all the information from
+ * ONE line in our log file.
+ */
 import java.time.LocalDateTime;
 
 public class LogEvent {

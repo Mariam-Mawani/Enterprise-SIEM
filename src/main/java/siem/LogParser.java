@@ -1,6 +1,7 @@
 package java.siem;
 
-/*  * This class reads the raw log file (a plain text file) and
+/*
+ * This class reads the raw log file (a plain text file) and
  * converts each line into a LogEvent object that the rest of
  * our program can work with easily.
  */
