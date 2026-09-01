@@ -43,6 +43,30 @@ public class DetectionEngineTest {
         assertEquals(0, alerts.size(), "A single failed login should NOT trigger a brute-force alert");
     }
 
+    // Five failed logins in one minute SHOULD raise a 'HIGH' alert.
+    // Our threshold is 5 failures within 5 minutes.
+    // Five failures spaced 10 seconds apart (total: 40 seconds)
+    // must produce exactly 1 HIGH alert.
+    @Test
+    public void fiveFailedLoginsInOneMinuteShouldTriggerAlert() {
+        ArrayList<LogEvent> events = new ArrayList<>();
+        LocalDateTime baseTime = LocalDateTime.now();
+
+        // Add 5 failed logins from the SAME IP, 10 seconds apart
+        for (int i = 0; i < 5; i++) {
+            events.add(makeFakeFailedLogin("9.9.9.9", baseTime.plusSeconds(i * 10)));
+        }
+
+        DetectionEngine engine = new DetectionEngine();
+        ArrayList<Alert> alerts = engine.runAllRules(events);
+
+        assertEquals(1, alerts.size(),
+                "Five failed logins from one IP should trigger exactly one brute-force alert");
+        assertEquals("HIGH", alerts.get(0).severity,
+                "The brute-force alert should have HIGH severity");
+    }
+
+
 
 
 }
