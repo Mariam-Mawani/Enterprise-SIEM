@@ -1,6 +1,7 @@
 package java.siem;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class DetectionEngineTest {
 
@@ -27,6 +28,20 @@ public class DetectionEngineTest {
         );
     }
 
+    // A single failed login should NOT raise an alert.
+    // One mistyped password is completely normal. Our rule
+    // requires 5+ failures, so 1 failure must produce 0 alerts.
+    @Test
+    public void oneFailedLoginShouldNotTriggerAlert() {
+        ArrayList<LogEvent> events = new ArrayList<>();
+        events.add(makeFakeFailedLogin("1.2.3.4", LocalDateTime.now()));
+
+        DetectionEngine engine = new DetectionEngine();
+        ArrayList<Alert> alerts = engine.runAllRules(events);
+
+        // assertEquals(expected, actual, message)
+        assertEquals(0, alerts.size(), "A single failed login should NOT trigger a brute-force alert");
+    }
 
 
 
