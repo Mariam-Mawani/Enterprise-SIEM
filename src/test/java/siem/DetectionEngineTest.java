@@ -9,10 +9,21 @@ public class DetectionEngineTest {
     private LogEvent makeFakeFailedLogin(String ipAddress, LocalDateTime time) {
         return new LogEvent(
                 time.toString(),    // Raw timestamp
-                time,
+                time,               // Timestamp as localDateTime
                 "AUTH_FAILED",      // Event type
-                ipAddress,
+                ipAddress,          // Ip address
                 "user=testuser"     // Extra details
+        );
+    }
+
+    // Helper: creates a fake PORT_SCAN_PROBE LogEvent
+    private LogEvent makeFakePortProbe(String ipAddress, int port, LocalDateTime time) {
+        return new LogEvent(
+                time.toString(),
+                time,
+                "PORT_SCAN_PROBE",
+                ipAddress,
+                "port=" + port
         );
     }
 
