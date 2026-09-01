@@ -66,6 +66,23 @@ public class DetectionEngineTest {
                 "The brute-force alert should have HIGH severity");
     }
 
+    // Failures from DIFFERENT IPs should not be grouped.
+    // Three failures from IP A and three failures from IP B
+    // should not combine to trigger an alert. Each IP is
+    // checked independently.
+    // --------------------------------------------------------
+    @Test
+    public void failuresFromDifferentIpsShouldNotCombine() {
+        ArrayList<LogEvent> events = new ArrayList<>();
+        LocalDateTime baseTime = LocalDateTime.now();
+
+        // 3 failures from IP A
+        for (int i = 0; i < 3; i++) {
+            events.add(makeFakeFailedLogin("10.0.0.1", baseTime.plusSeconds(i * 10)));
+        }
+       ~
+    }
+
 
 
 
