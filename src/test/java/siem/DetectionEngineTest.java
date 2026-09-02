@@ -80,7 +80,17 @@ public class DetectionEngineTest {
         for (int i = 0; i < 3; i++) {
             events.add(makeFakeFailedLogin("10.0.0.1", baseTime.plusSeconds(i * 10)));
         }
-       ~
+
+        // 3 failures from IP B (still only 3 each, below the threshold of 5)
+        for (int i = 0; i < 3; i++) {
+            events.add(makeFakeFailedLogin("10.0.0.2", baseTime.plusSeconds(i * 10)));
+        }
+
+        DetectionEngine engine = new DetectionEngine();
+        ArrayList<Alert> alerts = engine.runAllRules(events);
+
+        assertEquals(0, alerts.size(),
+                "Failures from different IPs must NOT be combined to trigger an alert");
     }
 
 
