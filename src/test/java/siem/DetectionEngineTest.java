@@ -60,10 +60,8 @@ public class DetectionEngineTest {
         DetectionEngine engine = new DetectionEngine();
         ArrayList<Alert> alerts = engine.runAllRules(events);
 
-        assertEquals(1, alerts.size(),
-                "Five failed logins from one IP should trigger exactly one brute-force alert");
-        assertEquals("HIGH", alerts.get(0).severity,
-                "The brute-force alert should have HIGH severity");
+        assertEquals(1, alerts.size(), "Five failed logins from one IP should trigger exactly one brute-force alert");
+        assertEquals("HIGH", alerts.get(0).severity, "The brute-force alert should have HIGH severity");
     }
 
     // Failures from DIFFERENT IPs should not be grouped.
@@ -89,9 +87,30 @@ public class DetectionEngineTest {
         DetectionEngine engine = new DetectionEngine();
         ArrayList<Alert> alerts = engine.runAllRules(events);
 
-        assertEquals(0, alerts.size(),
-                "Failures from different IPs must NOT be combined to trigger an alert");
+        assertEquals(0, alerts.size(), "Failures from different IPs must NOT be combined to trigger an alert");
     }
+
+    // Ten port probes from one IP in under a minute, SHOULD raise a 'MEDIUM' alert.
+    @Test
+    public void tenPortProbesInOneMinuteShouldTriggerAlert() {
+        ArrayList<LogEvent> events = new ArrayList<>();
+        LocalDateTime baseTime = LocalDateTime.now();
+
+        // Probe 10 different ports, 3 seconds apart (total: 27 seconds)
+        int[] ports = {21, 22, 23, 25, 80, 110, 139, 443, 3306, 3389};
+        for (int i = 0; i < ports.length; i++) {
+            events.add(makeFakePortProbe("5.5.5.5", ports[i], baseTime.plusSeconds(i * 3)));
+        }
+
+        DetectionEngine engine = new DetectionEngine();
+        ArrayList<Alert> alerts = engine.runAllRules(events);
+
+        assertEquals(1, alerts.size(),
+                "Ten port probes in under a minute should trigger exactly one port-scan alert");
+        assertEquals("MEDIUM", alerts.get(0).severity,
+                "The port-scan alert should have MEDIUM severity");
+    }
+
 
 
 
