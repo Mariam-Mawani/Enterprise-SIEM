@@ -3,6 +3,9 @@ package java.siem;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class DetectionEngineTest {
 
     // Helper method: creates a fake AUTH_FAILED LogEvent.
@@ -122,9 +125,4 @@ public class DetectionEngineTest {
         assertEquals(0, alerts.size(),
                 "An empty event list should never produce any alerts");
     }
-
-
-
-
-
 }
