@@ -111,6 +111,18 @@ public class DetectionEngineTest {
                 "The port-scan alert should have MEDIUM severity");
     }
 
+    // An empty log should produce zero alerts.
+    @Test
+    public void emptyEventListShouldProduceNoAlerts() {
+        ArrayList<LogEvent> events = new ArrayList<>();
+
+        DetectionEngine engine = new DetectionEngine();
+        ArrayList<Alert> alerts = engine.runAllRules(events);
+
+        assertEquals(0, alerts.size(),
+                "An empty event list should never produce any alerts");
+    }
+
 
 
 
