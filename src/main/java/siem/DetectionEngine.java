@@ -29,6 +29,12 @@ public class DetectionEngine {
         ArrayList<Alert> bruteForceAlerts = checkForBruteForce(events);
         ArrayList<Alert> portScanAlerts   = checkForPortScan(events);
 
+        allAlerts.addAll(bruteForceAlerts);
+        allAlerts.addAll(portScanAlerts);
+
+        System.out.println(" Detection complete. Alerts raised: " + allAlerts.size());
+        return allAlerts;
+
     }
 
 
