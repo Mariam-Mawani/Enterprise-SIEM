@@ -7,6 +7,7 @@ package java.siem;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DetectionEngine {
 
@@ -34,9 +35,17 @@ public class DetectionEngine {
 
         System.out.println(" Detection complete. Alerts raised: " + allAlerts.size());
         return allAlerts;
-
     }
 
+    // Brute force detection
+    private ArrayList<Alert> checkForBruteForce(ArrayList<LogEvent> events) {
+        ArrayList<Alert> alerts = new ArrayList<>();
 
+        // Group every AUTH_FAILED event by the IP address it came from.
+        // We use a HashMap where:
+        // key   = an IP address string, e.g. "198.51.100.23"
+        // value = a list of all AUTH_FAILED LogEvent objects from that IP
+        HashMap<String, ArrayList<LogEvent>> failedLoginsByIp = new HashMap<>();
+    }
 
 }
