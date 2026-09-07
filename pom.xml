@@ -29,7 +29,7 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src</sourceDirectory>      <!-- because your .java files are directly under src/ -->
+        <sourceDirectory>src</sourceDirectory>      <!-- because .java files are directly under src/ -->
         <plugins>
             <!-- Compiler plugin: ensures Java 11+ compatibility -->
             <plugin>

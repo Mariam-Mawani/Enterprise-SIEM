@@ -5,10 +5,9 @@ built in Java from scratch — no frameworks, no external libraries, no Maven.
 Just standard Java, compiled and run with two commands.
 
 A SIEM is the tool a security team uses to pull logs from many systems into
-one place, store them, and automatically flag suspicious patterns that a human
+one place, store them, and automatically flag suspicious patterns that a person
 watching logs line-by-line would miss. This project implements the same core
-pipeline — **generate → parse → detect → alert → report** — at a beginner-friendly
-scale, inspired by real tools like Splunk, QRadar, and Wazuh.
+pipeline — **generate → parse → detect → alert → report** —  inspired by real tools like Splunk, QRadar, and Wazuh.
 
 ---
 
@@ -95,3 +94,6 @@ regex complexity getting in the way.
 - Replace the static HTML report with a live dashboard using a simple web server
 - Add email or Slack notifications when a HIGH alert is raised
 - Read logs in real-time by tailing a file instead of processing a snapshot
+
+Verification code:
+WTC-F2NLM4ZX
