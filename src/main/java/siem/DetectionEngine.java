@@ -56,6 +56,30 @@ public class DetectionEngine {
                 failedLoginsByIp.get(event.ipAddress).add(event);
             }
         }
+        // Check each IP's failure list against our rule
+        for (String ipAddress : failedLoginsByIp.keySet()) {
+            ArrayList<LogEvent> failedLogins = failedLoginsByIp.get(ipAddress);
+            // Does this IP even meet the minimum count?
+            if (failedLogins.size() < BRUTE_FORCE_LOGIN_THRESHOLD) {
+                continue;   // not enough failures -- move on to the next IP
+            }
+            // Find the earliest and latest timestamps in this IP's failure list.
+            // The time between those two is the "span" of the activity.
+            LogEvent earliest = failedLogins.get(0);
+            LogEvent latest = failedLogins.get(0);
+
+            for (LogEvent login : failedLogins) {
+                if (login.timestamp.isBefore(earliest.timestamp)) {
+                    earliest = login;
+                }
+                if (login.timestamp.isAfter(latest.timestamp)) {
+                    latest = login;
+                }
+            }
+            // Duration.between() gives us the exact time gap.
+            // toMinutes() converts that gap into whole minutes.
+
+        }
     }
 
 }
