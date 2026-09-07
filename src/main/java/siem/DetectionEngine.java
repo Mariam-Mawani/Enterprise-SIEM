@@ -43,9 +43,19 @@ public class DetectionEngine {
 
         // Group every AUTH_FAILED event by the IP address it came from.
         // We use a HashMap where:
-        // key   = an IP address string, e.g. "198.51.100.23"
+        // key = an IP address string, e.g. "198.51.100.23"
         // value = a list of all AUTH_FAILED LogEvent objects from that IP
         HashMap<String, ArrayList<LogEvent>> failedLoginsByIp = new HashMap<>();
+
+        for (LogEvent event : events) {
+            if (event.eventType.equals("AUTH_FAILED")) {
+                // If this IP has no entry yet, create an empty list for it first
+                if (!failedLoginsByIp.containsKey(event.ipAddress)) {
+                    failedLoginsByIp.put(event.ipAddress, new ArrayList<>());
+                }
+                failedLoginsByIp.get(event.ipAddress).add(event);
+            }
+        }
     }
 
 }
