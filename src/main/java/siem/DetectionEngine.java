@@ -6,6 +6,7 @@ package java.siem;
  */
 
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -78,8 +79,26 @@ public class DetectionEngine {
             }
             // Duration.between() gives us the exact time gap.
             // toMinutes() converts that gap into whole minutes.
+            long minutesSpanned = Duration.between(earliest.timestamp, latest.timestamp)
+                    .toMinutes();
+            long secondsSpanned = Duration.between(earliest.timestamp, latest.timestamp)
+                    .toSeconds();
+
+            // Did all the failures happen within our allowed time window?
+            if (minutesSpanned <= BRUTE_FORCE_WINDOW_MINUTES) {
+
+                String description = "Possible brute-force attack from " + ipAddress
+                        + ": " + failedLogins.size() + " failed logins"
+                        + " within " + secondsSpanned + " seconds.";
+
+                // Use the timestamp of the LAST failure as the alert time
+                alerts.add(new Alert(latest.rawTimestamp, "HIGH", description));
+            }
 
         }
+        return alerts;
     }
+
+    // RULE 2: Port Scan Detection
 
 }
