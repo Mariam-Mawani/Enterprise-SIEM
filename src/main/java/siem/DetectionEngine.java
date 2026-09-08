@@ -38,7 +38,7 @@ public class DetectionEngine {
         return allAlerts;
     }
 
-    // Brute force detection
+    // Rule 1: Brute force detection
     private ArrayList<Alert> checkForBruteForce(ArrayList<LogEvent> events) {
         ArrayList<Alert> alerts = new ArrayList<>();
 
@@ -100,5 +100,65 @@ public class DetectionEngine {
     }
 
     // RULE 2: Port Scan Detection
+    private ArrayList<Alert> checkForPortScan(ArrayList<LogEvent> events) {
+
+        ArrayList<Alert> alerts = new ArrayList<>();
+        // Group every PORT_SCAN_PROBE event by IP address.
+        // Same structure as the brute-force rule above.
+        HashMap<String, ArrayList<LogEvent>> probesByIp = new HashMap<>();
+
+        for (LogEvent event : events) {
+            if (event.eventType.equals("PORT_SCAN_PROBE")) {
+
+                if (!probesByIp.containsKey(event.ipAddress)) {
+                    probesByIp.put(event.ipAddress, new ArrayList<>());
+                }
+
+                probesByIp.get(event.ipAddress).add(event);
+            }
+        }
+        // Step 2: Check each IP's probe list against our rule
+        for (String ipAddress : probesByIp.keySet()) {
+            ArrayList<LogEvent> probes = probesByIp.get(ipAddress);
+
+            // We care about DISTINCT ports, not total probe count.
+            // Scanning port 22 five times is less suspicious than scanning
+            // five different ports once each. We use a HashSet because
+            // adding the same value to a HashSet twice still only stores it once.
+            HashSet<String> distinctPorts = new HashSet<>();
+            for (LogEvent probe : probes) {
+                // extraDetails for a probe looks like "port=22"
+                // We add the whole string -- each unique string is one distinct port
+                distinctPorts.add(probe.extraDetails);
+            }
+            // Does this IP even meet the minimum number of distinct ports?
+            if (distinctPorts.size() < PORT_SCAN_PORT_THRESHOLD) {
+                continue;  // not enough distinct ports -- move on
+            }
+            // Find the earliest and latest timestamps
+            LogEvent earliest = probes.get(0);
+            LogEvent latest   = probes.get(0);
+
+            for (LogEvent probe : probes) {
+                if (probe.timestamp.isBefore(earliest.timestamp)) {
+                    earliest = probe;
+                }
+                if (probe.timestamp.isAfter(latest.timestamp)) {
+                    latest = probe;
+                }
+            }
+            long minutesSpanned = Duration.between(earliest.timestamp, latest.timestamp).toMinutes();
+            long secondsSpanned = Duration.between(earliest.timestamp, latest.timestamp).toSeconds();
+
+            if (minutesSpanned <= PORT_SCAN_WINDOW_MINUTES) {
+                String description = "Possible port scan from " + ipAddress
+                        + ": " + distinctPorts.size() + " different ports probed" + " within " + secondsSpanned
+                        + " seconds.";
+                alerts.add(new Alert(latest.rawTimestamp, "MEDIUM", description));
+            }
+        }
+        return alerts;
+
+    }
 
 }
