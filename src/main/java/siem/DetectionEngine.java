@@ -9,6 +9,7 @@ package java.siem;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class DetectionEngine {
 
@@ -94,7 +95,6 @@ public class DetectionEngine {
                 // Use the timestamp of the LAST failure as the alert time
                 alerts.add(new Alert(latest.rawTimestamp, "HIGH", description));
             }
-
         }
         return alerts;
     }
@@ -158,7 +158,5 @@ public class DetectionEngine {
             }
         }
         return alerts;
-
     }
-
 }
