@@ -53,7 +53,28 @@ public class DashboardBuilder {
         System.out.println("  Dashboard saved to '" + outputFileName + "'.");
     }
 
+    // The three number cards at the top of the page
     private String buildSummaryCards(int totalEvents, int totalAlerts, int highSeverityCount) {
+
+        return "<div class=\"summary-cards\">\n"
+                + " <div class=\"card\">\n"
+                + "    <div class=\"card-number\">" + totalEvents + "</div>\n"
+                + "    <div class=\"card-label\">Total Events</div>\n"
+                + "  </div>\n"
+                + "  <div class=\"card\">\n"
+                + "    <div class=\"card-number\">" + totalAlerts + "</div>\n"
+                + "    <div class=\"card-label\">Total Alerts</div>\n"
+                + "  </div>\n"
+                + "  <div class=\"card card-danger\">\n"
+                + "    <div class=\"card-number\">" + highSeverityCount + "</div>\n"
+                + "    <div class=\"card-label\">High Severity</div>\n"
+                + "  </div>\n"
+                + "</div>\n";
+    }
+
+    // A simple CSS bar chart (no JavaScript library needed)
+    // Each bar is just a <div> whose width is a percentage.
+    private String buildBarChart(HashMap<String, Integer> eventCountsByType) {
 
     }
 
