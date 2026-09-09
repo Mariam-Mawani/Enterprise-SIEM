@@ -76,6 +76,34 @@ public class DashboardBuilder {
     // Each bar is just a <div> whose width is a percentage.
     private String buildBarChart(HashMap<String, Integer> eventCountsByType) {
 
+        if (eventCountsByType.isEmpty()) {
+            return "<p>No events to display.</p>\n";
+        }
+        // Find the highest count so we can scale bar widths correctly
+        int largestCount = 0;
+
+        for (int count : eventCountsByType.values()) {
+            if (count > largestCount) {
+                largestCount = count;
+            }
+        }
+
+        StringBuilder html = new StringBuilder();
+
+        for (String eventType : eventCountsByType.keySet()) {
+            int count = eventCountsByType.get(eventType);
+            // Width as a percentage of the widest bar
+            int barWidthPercent = (count * 100) / largestCount;
+
+            html.append("<div class=\"bar-row\">\n");
+            html.append("  <div class=\"bar-label\">").append(eventType).append("</div>\n");
+            html.append("  <div class=\"bar-track\">");
+            html.append("<div class=\"bar-fill\" style=\"width: ").append(barWidthPercent).append("%;\"></div>");
+            html.append("</div>\n");
+            html.append("  <div class=\"bar-count\">").append(count).append("</div>\n");
+            html.append("</div>\n");
+        }
+        return html.toString();
     }
 
 }
