@@ -87,7 +87,6 @@ public class DashboardBuilder {
                 largestCount = count;
             }
         }
-
         StringBuilder html = new StringBuilder();
 
         for (String eventType : eventCountsByType.keySet()) {
@@ -104,6 +103,32 @@ public class DashboardBuilder {
             html.append("</div>\n");
         }
         return html.toString();
+    }
+
+    // A table showing every alert with a severity colour badge
+    private String buildAlertsTable(ArrayList<Alert> alerts) {
+        if (alerts.isEmpty()) {
+            return "<p>No alerts were raised. Everything looks normal.</p>\n";
+        }
+
+        StringBuilder rows = new StringBuilder();
+
+        for (Alert alert : alerts) {
+            // Pick a CSS class for the badge colour
+            String badgeClass = alert.severity.equals("HIGH") ? "severity-high" : "severity-medium";
+
+            rows.append("<tr>\n");
+            rows.append("  <td>").append(alert.timestamp).append("</td>\n");
+            rows.append("  <td><span class=\"badge ").append(badgeClass).append("\">")
+                    .append(alert.severity).append("</span></td>\n");
+            rows.append("  <td>").append(alert.description).append("</td>\n");
+            rows.append("</tr>\n");
+        }
+
+        return "<table>\n"
+                + "  <thead><tr><th>Time</th><th>Severity</th><th>Description</th></tr></thead>\n"
+                + "  <tbody>\n" + rows + "  </tbody>\n"
+                + "</table>\n";
     }
 
 }
