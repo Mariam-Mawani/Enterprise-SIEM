@@ -110,7 +110,6 @@ public class DashboardBuilder {
         if (alerts.isEmpty()) {
             return "<p>No alerts were raised. Everything looks normal.</p>\n";
         }
-
         StringBuilder rows = new StringBuilder();
 
         for (Alert alert : alerts) {
@@ -124,11 +123,44 @@ public class DashboardBuilder {
             rows.append("  <td>").append(alert.description).append("</td>\n");
             rows.append("</tr>\n");
         }
-
         return "<table>\n"
                 + "  <thead><tr><th>Time</th><th>Severity</th><th>Description</th></tr></thead>\n"
                 + "  <tbody>\n" + rows + "  </tbody>\n"
                 + "</table>\n";
     }
 
+    // A table showing the most recent raw log events
+    private String buildRecentEventsTable(ArrayList<LogEvent> events) {
+        if (events.isEmpty()) {
+            return "<p>No events found.</p>\n";
+        }
+        // Show the last 30 events, most recent first.
+        // In a real SIEM you'd paginate thousands of events, but for
+        // our demo dataset of ~28 events this shows everything.
+        int startIndex = Math.max(0, events.size() - 30);
+        StringBuilder rows = new StringBuilder();
+
+        // Iterate backwards through the list so newest events appear at the top
+        for (int i = events.size() - 1; i >= startIndex; i--) {
+            LogEvent event = events.get(i);
+            rows.append("<tr>\n");
+            rows.append("  <td>").append(event.rawTimestamp).append("</td>\n");
+            rows.append("  <td>").append(event.eventType).append("</td>\n");
+            rows.append("  <td>").append(event.ipAddress).append("</td>\n");
+            rows.append("  <td>").append(event.extraDetails).append("</td>\n");
+            rows.append("</tr>\n");
+        }
+        return "<table>\n"
+                + "  <thead>"
+                + "<tr><th>Time</th><th>Event Type</th><th>IP Address</th><th>Details</th></tr>"
+                + "</thead>\n"
+                + "  <tbody>\n" + rows + "  </tbody>\n"
+                + "</table>\n";
+    }
+
+    // Assembles the full HTML page with CSS styles included
+    private String buildFullPage(String summaryCards, String barChart, String alertsTable, String eventsTable) {
+
+
+    }
 }
