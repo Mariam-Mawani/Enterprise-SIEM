@@ -161,6 +161,16 @@ public class DashboardBuilder {
     // Assembles the full HTML page with CSS styles included
     private String buildFullPage(String summaryCards, String barChart, String alertsTable, String eventsTable) {
 
+        // We use a StringBuilder here because we're joining many small
+        // strings together. It's more efficient than many + operations.
+        StringBuilder page = new StringBuilder();
+
+        page.append("<!DOCTYPE html>\n");
+        page.append("<html lang=\"en\">\n");
+        page.append("<head>\n");
+        page.append("  <meta charset=\"UTF-8\">\n");
+        page.append("  <title>Mini SIEM Dashboard</title>\n");
+        page.append("  <style>\n");
 
     }
 }
