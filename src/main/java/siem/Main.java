@@ -64,5 +64,23 @@ public class Main {
         }
     }
 
+    // Print a nicely formatted summary table to the console
+    private static void printSummary(ArrayList<LogEvent> events, ArrayList<Alert> alerts) {
 
+        System.out.println("-".repeat(60));
+        System.out.println("  Total log events processed : " + events.size());
+        System.out.println("  Total alerts raised        : " + alerts.size());
+        System.out.println("-".repeat(60));
+
+        if (alerts.isEmpty()) {
+            System.out.println("  No suspicious activity detected.");
+        }
+        else {
+            for (Alert alert : alerts) {
+                System.out.println(" " + alert.toString());
+            }
+        }
+        System.out.println("-".repeat(60));
+        System.out.println();
+    }
 }
