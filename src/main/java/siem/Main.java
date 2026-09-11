@@ -49,7 +49,7 @@ public class Main {
             printSummary(events, alerts);
 
             // STEP 5: Build and save the HTML dashboard
-            System.out.println(["\n[Step] Building HTML dashboard...");
+            System.out.println("\n[Step] Building HTML dashboard...");
             DashboardBuilder dashboardBuilder = new DashboardBuilder();
             dashboardBuilder.buildDashboard(events, alerts, DASHBOARD_FILE);
 
