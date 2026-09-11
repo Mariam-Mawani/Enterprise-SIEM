@@ -1,4 +1,4 @@
-package java.siem;
+package siem;
 
 /*
  * This class contains our "detection rules" -- the logic that

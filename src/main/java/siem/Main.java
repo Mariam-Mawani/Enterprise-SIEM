@@ -1,4 +1,4 @@
-package java.siem;
+package siem;
 
 /* This is the entry point for our Mini SIEM.
  *

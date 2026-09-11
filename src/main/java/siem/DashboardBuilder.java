@@ -1,4 +1,4 @@
-package java.siem;
+package siem;
 
 /*
  * This class takes all the events and alerts we collected

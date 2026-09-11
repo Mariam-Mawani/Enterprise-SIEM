@@ -1,4 +1,4 @@
-package java.siem;
+package siem;
 
 /*
  * This class creates a FAKE (synthetic) log file for our

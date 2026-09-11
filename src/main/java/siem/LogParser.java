@@ -1,4 +1,4 @@
-package java.siem;
+package siem;
 
 /*
  * This class reads the raw log file (a plain text file) and

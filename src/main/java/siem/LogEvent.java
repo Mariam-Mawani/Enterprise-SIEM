@@ -1,4 +1,4 @@
-package java.siem;
+package siem;
 
 /*
  * A simple data class that holds all the information from

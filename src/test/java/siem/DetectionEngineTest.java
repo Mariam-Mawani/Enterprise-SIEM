@@ -1,4 +1,4 @@
-package java.siem;
+package siem;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
