@@ -93,7 +93,7 @@ public class DetectionEngine {
                         + " within " + secondsSpanned + " seconds.";
 
                 // Use the timestamp of the LAST failure as the alert time
-                alerts.add(new Alert(latest.rawTimestamp, "HIGH", description));
+                alerts.add(new Alert(latest.rawTimeStamp, "HIGH", description));
             }
         }
         return alerts;
@@ -154,7 +154,7 @@ public class DetectionEngine {
                 String description = "Possible port scan from " + ipAddress
                         + ": " + distinctPorts.size() + " different ports probed" + " within " + secondsSpanned
                         + " seconds.";
-                alerts.add(new Alert(latest.rawTimestamp, "MEDIUM", description));
+                alerts.add(new Alert(latest.rawTimeStamp, "MEDIUM", description));
             }
         }
         return alerts;
