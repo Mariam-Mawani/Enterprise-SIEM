@@ -40,7 +40,29 @@ public class Main {
             System.out.println("  Parsed " + events.size() + " events successfully.");
 
             // STEP 3: Run all detection rules
+            System.out.println("\n[step 3] Running detection rules...");
+            DetectionEngine engine = new DetectionEngine();
+            ArrayList<Alert> alerts = engine.runAllRules(events);
 
+            // STEP 4: Print a summary to the console
+            System.out.println("\n[Step 4] Detection summary: ");
+            printSummary(events, alerts);
+
+            // STEP 5: Build and save the HTML dashboard
+            System.out.println(["\n[Step] Building HTML dashboard...");
+            DashboardBuilder dashboardBuilder = new DashboardBuilder();
+            dashboardBuilder.buildDashboard(events, alerts, DASHBOARD_FILE);
+
+            System.out.println("\n" + "=".repeat(60));
+            System.out.println("  Done! Open '" + DASHBOARD_FILE + "' in your browser.");
+            System.out.println("=".repeat(60));
+
+
+        } catch (Exception error) {
+            System.out.println("\nSomething went wrong: " + error.getMessage());
+            error.printStackTrace();
         }
     }
+
+
 }
