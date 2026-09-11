@@ -172,5 +172,50 @@ public class DashboardBuilder {
         page.append("  <title>Mini SIEM Dashboard</title>\n");
         page.append("  <style>\n");
 
+        // ---- CSS styles (dark theme) ----
+        page.append("    body { font-family: Arial, Helvetica, sans-serif; background-color: #0f172a; color: #e2e8f0; margin: 0; padding: 30px; }\n");
+        page.append("    h1 { color: #38bdf8; }\n");
+        page.append("    h2 { border-bottom: 2px solid #334155; padding-bottom: 6px; margin-top: 40px; }\n");
+        page.append("    p  { color: #94a3b8; }\n");
+        page.append("    .summary-cards { display: flex; gap: 20px; margin: 20px 0; }\n");
+        page.append("    .card { background-color: #1e293b; border-radius: 8px; padding: 20px 30px; text-align: center; flex: 1; }\n");
+        page.append("    .card-danger { border: 1px solid #ef4444; }\n");
+        page.append("    .card-number { font-size: 36px; font-weight: bold; color: #38bdf8; }\n");
+        page.append("    .card-danger .card-number { color: #ef4444; }\n");
+        page.append("    .card-label { margin-top: 6px; color: #94a3b8; }\n");
+        page.append("    table { width: 100%; border-collapse: collapse; background-color: #1e293b; border-radius: 8px; overflow: hidden; margin-top: 10px; }\n");
+        page.append("    th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid #334155; font-size: 14px; }\n");
+        page.append("    th { background-color: #334155; color: #f1f5f9; }\n");
+        page.append("    .badge { padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; }\n");
+        page.append("    .severity-high   { background-color: #ef4444; color: white; }\n");
+        page.append("    .severity-medium { background-color: #f59e0b; color: white; }\n");
+        page.append("    .bar-row   { display: flex; align-items: center; margin: 10px 0; }\n");
+        page.append("    .bar-label { width: 160px; font-size: 14px; color: #cbd5e1; }\n");
+        page.append("    .bar-track { flex: 1; background-color: #1e293b; border-radius: 4px; height: 18px; margin-right: 12px; }\n");
+        page.append("    .bar-fill  { height: 100%; background-color: #38bdf8; border-radius: 4px; }\n");
+        page.append("    .bar-count { width: 40px; text-align: right; color: #94a3b8; }\n");
+
+        page.append("  </style>\n");
+        page.append("</head>\n");
+        page.append("<body>\n");
+
+        page.append("  <h1>Mini SIEM Dashboard</h1>\n");
+        page.append("  <p>A simple Security Information and Event Management report, built in Java.</p>\n");
+
+        page.append(summaryCards);
+
+        page.append("  <h2>Events by Type</h2>\n");
+        page.append(barChart);
+
+        page.append("  <h2>Alerts</h2>\n");
+        page.append(alertsTable);
+
+        page.append("  <h2>Recent Events</h2>\n");
+        page.append(eventsTable);
+
+        page.append("</body>\n");
+        page.append("</html>\n");
+
+        return page.toString();
     }
 }
