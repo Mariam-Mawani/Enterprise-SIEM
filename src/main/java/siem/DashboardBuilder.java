@@ -144,7 +144,7 @@ public class DashboardBuilder {
         for (int i = events.size() - 1; i >= startIndex; i--) {
             LogEvent event = events.get(i);
             rows.append("<tr>\n");
-            rows.append("  <td>").append(event.rawTimestamp).append("</td>\n");
+            rows.append("  <td>").append(event.rawTimeStamp).append("</td>\n");
             rows.append("  <td>").append(event.eventType).append("</td>\n");
             rows.append("  <td>").append(event.ipAddress).append("</td>\n");
             rows.append("  <td>").append(event.extraDetails).append("</td>\n");

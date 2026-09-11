@@ -56,8 +56,6 @@ public class Main {
             System.out.println("\n" + "=".repeat(60));
             System.out.println("  Done! Open '" + DASHBOARD_FILE + "' in your browser.");
             System.out.println("=".repeat(60));
-
-
         } catch (Exception error) {
             System.out.println("\nSomething went wrong: " + error.getMessage());
             error.printStackTrace();
