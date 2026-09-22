@@ -1,8 +1,7 @@
 # Enterprise-SIEM
 
 A simplified Security Information and Event Management (SIEM) system,
-built in Java from scratch — no frameworks, no external libraries, no Maven.
-Just standard Java, compiled and run with two commands.
+built in Java from scratch. Compiled and run with two commands.
 
 A SIEM is the tool a security team uses to pull logs from many systems into
 one place, store them, and automatically flag suspicious patterns that a person
@@ -14,13 +13,11 @@ pipeline — **generate → parse → detect → alert → report** —  inspire
 ## How to run it
 
 ```bash
-javac *.java
-java Main
+mvn package
+java -jar mini-siem-1.0-SNAPSHOT.jar
 ```
 
 Then open `dashboard.html` in your browser.
-
-That's it. No `pom.xml`, no `pip install`, no setup steps.
 
 ---
 
@@ -97,3 +94,6 @@ regex complexity getting in the way.
 
 Verification code:
 WTC-F2NLM4ZX
+
+Demo Video:
+https://youtu.be/_E8TO3_RZD0
